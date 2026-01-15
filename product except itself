@@ -1,0 +1,30 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* productExceptSelf(int* nums, int numsSize, int* returnSize) {
+    int *result = (int*)malloc(numsSize*sizeof(int));
+    int prefix[numsSize],suffix[numsSize];
+    prefix[0]=1;
+    int product =1;
+    for(int i=1;i<numsSize;i++){
+        product *= nums[i-1];
+        prefix[i]=product;
+
+        
+    }
+    product = 1;
+    suffix[0]=product;
+    for(int i=1,j=numsSize-2;i<numsSize;i++,j--){
+        product*=nums[j+1];
+        suffix[i]=product;
+
+
+    }
+    *returnSize=numsSize;
+    for(int i=0,j=numsSize-1;i<numsSize;i++,j--){
+        result[i]=prefix[i]*suffix[j];
+    }
+    return result;
+
+    
+}
